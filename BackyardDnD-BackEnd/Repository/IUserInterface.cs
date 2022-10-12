@@ -11,5 +11,6 @@ namespace BackyardDnD_BackEnd.Repository
         bool CheckUnique(string userName);
         string CreateCharacter(User user);
         UserCharacter LoadCharacter(User user);
+        string SendRoll(RollModel rollModel);
     }
 }

@@ -2,7 +2,6 @@
 using BackyardDnD_BackEnd.Models;
 using BackyardDnD_BackEnd.Models.character;
 using BackyardDnD_BackEnd.Repository;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
@@ -73,6 +72,20 @@ namespace BackyardDnD_BackEnd.Controllers
             UserCharacter userCharacter = _createUserInterface.LoadCharacter(user);
 
             return userCharacter;
+        }
+        
+        [HttpPost]
+        [Route("sendRoll")]
+        public string SendRoll([FromBody] RollModel rollModel)
+        {
+            try
+            {
+                return _createUserInterface.SendRoll(rollModel);
+            }
+            catch (Exception)
+            {
+                return "False";
+            }
         }
     }
 }

@@ -123,5 +123,14 @@ namespace BackyardDnD_BackEnd.Repository
                 return null;
             }
         }
+
+        public string SendRoll(RollModel rollModel)
+        {
+            var final = rollModel.RollValue + rollModel.Modifier;
+            var result = rollModel.Username + " rolled a " + final + "(" +
+                         rollModel.Modifier + ")";
+            Console.WriteLine(result);
+            return result;
+        }
     }
 }
