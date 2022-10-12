@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BackyardDnD_BackEnd.Database;
 using BackyardDnD_BackEnd.Repository;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -36,8 +37,8 @@ namespace BackyardDnD_BackEnd
             //database
             services.AddScoped<DatabaseHelper>();
             services.AddScoped<Converter>();
-            
-            
+
+
             //Repositories
             services.AddScoped<IUserInterface,UserRepo>();
         }
@@ -60,7 +61,7 @@ namespace BackyardDnD_BackEnd
             app.UseRouting();
             
             app.UseCors("MyPolicy");
-
+            
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });

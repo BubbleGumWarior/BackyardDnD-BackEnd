@@ -1,6 +1,7 @@
 ﻿using System;
 using BackyardDnD_BackEnd.Models;
 using BackyardDnD_BackEnd.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
