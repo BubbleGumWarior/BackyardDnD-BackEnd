@@ -127,8 +127,8 @@ namespace BackyardDnD_BackEnd.Repository
         public string SendRoll(RollModel rollModel)
         {
             var final = rollModel.RollValue + rollModel.Modifier;
-            var result = rollModel.Username + " rolled a " + final + "(" +
-                         rollModel.Modifier + ")";
+            var result = "================================================\n" + rollModel.Username + " rolled a " + final + ".\nThe Modifier was " +
+                         rollModel.Modifier + ".";
             Console.WriteLine(result);
             return result;
         }

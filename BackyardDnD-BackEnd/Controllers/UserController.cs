@@ -76,16 +76,18 @@ namespace BackyardDnD_BackEnd.Controllers
         
         [HttpPost]
         [Route("sendRoll")]
-        public string SendRoll([FromBody] RollModel rollModel)
+        public bool SendRoll([FromBody] RollModel rollModel)
         {
             try
             {
-                return _createUserInterface.SendRoll(rollModel);
+                _createUserInterface.SendRoll(rollModel);
             }
             catch (Exception)
             {
-                return "False";
+                return false;
             }
+
+            return true;
         }
     }
 }
