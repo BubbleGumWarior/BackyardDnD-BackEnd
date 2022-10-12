@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Security.Claims;
 using BackyardDnD_BackEnd.Database;
 using BackyardDnD_BackEnd.Models;
+using BackyardDnD_BackEnd.Models.character;
 using Microsoft.Data.SqlClient;
 
 namespace BackyardDnD_BackEnd.Repository
@@ -29,6 +31,7 @@ namespace BackyardDnD_BackEnd.Repository
                     new SqlParameter("@Password", user.Password),
                 }; 
                 _dataBaseHelper.TriggerStoredProcNoTable("spRegisterUser", dataParams);
+                
                 return "Success";
             }
             catch (Exception e)
@@ -58,6 +61,66 @@ namespace BackyardDnD_BackEnd.Repository
             {
                 Console.WriteLine(e);
                 return false;
+            }
+        }
+
+        public bool CheckUnique(string userName)
+        {
+            try
+            {
+                SqlParameter[] dataParams = new SqlParameter[]
+                {
+                    new SqlParameter("@Username", userName),
+                };
+                var res = _dataBaseHelper.TriggerStoredProc("spCheckUnique", dataParams);
+                if (res.Rows.Count == 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+        }
+
+        public string CreateCharacter(User user)
+        {
+            try
+            {
+                SqlParameter[] dataParams = new SqlParameter[]
+                {
+                    new SqlParameter("@UserName", user.UserName),
+                }; 
+                _dataBaseHelper.TriggerStoredProcNoTable("spCreateCharacter", dataParams);
+                
+                return "Success";
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return "Fail";
+            }
+        }
+
+        public UserCharacter LoadCharacter(User user)
+        {
+            try
+            {
+                SqlParameter[] dataParams = new SqlParameter[]
+                {
+                    new SqlParameter("@userName", user.UserName),
+                }; 
+                var userCharacter = _dataBaseHelper.TriggerStoredProc("spLoadChar", dataParams);
+                
+                return _converter.ConvertCharModel(userCharacter);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return null;
             }
         }
     }

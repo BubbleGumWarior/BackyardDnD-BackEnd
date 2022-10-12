@@ -1,5 +1,6 @@
 ﻿using System;
 using BackyardDnD_BackEnd.Models;
+using BackyardDnD_BackEnd.Models.character;
 using BackyardDnD_BackEnd.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
@@ -31,6 +32,21 @@ namespace BackyardDnD_BackEnd.Controllers
             }
             return true;
         }
+        
+        [HttpPost]
+        [Route("CreateCharacter")]
+        public bool CreateCharacter([FromBody] User user)
+        {
+            try
+            {
+                _createUserInterface.CreateCharacter(user);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
+        }
 
         [HttpPost]
         [Route("LoginUser")]
@@ -39,6 +55,24 @@ namespace BackyardDnD_BackEnd.Controllers
             var loginStatus = _createUserInterface.LoginUser(user.UserName, user.Password);
 
             return loginStatus;
+        }
+        
+        [HttpPost]
+        [Route("CheckUnique")]
+        public bool CheckUnique([FromBody] User user)
+        {
+            var bUnique = _createUserInterface.CheckUnique(user.UserName);
+
+            return bUnique;
+        }
+        
+        [HttpPost]
+        [Route("LoadCharacter")]
+        public UserCharacter LoadCharacter([FromBody] User user)
+        {
+            UserCharacter userCharacter = _createUserInterface.LoadCharacter(user);
+
+            return userCharacter;
         }
     }
 }
